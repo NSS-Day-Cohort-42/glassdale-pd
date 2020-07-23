@@ -1,6 +1,6 @@
 export const OfficerHTMLConverter = (officerObj) => {
     return `
-        <section>
+        <section class="officer">
             ${officerObj.name}
         </section>
     `

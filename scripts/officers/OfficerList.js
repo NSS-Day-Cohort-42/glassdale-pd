@@ -8,11 +8,18 @@ export const OfficerList = () => {
     getOfficers()
         .then(() => {
             const officerArray = useOfficers()
+
             let officerHTMLRepresentations = ""
+
             officerArray.forEach(officer => {
                 officerHTMLRepresentations += OfficerHTMLConverter(officer)
             })
 
-            contentTarget.innerHTML = officerHTMLRepresentations
+            contentTarget.innerHTML = `
+                <h2>Glassdale PD Officers</h2>
+                <article class="officerList">
+                    ${ officerHTMLRepresentations }
+                </article>
+            `
         })
 }

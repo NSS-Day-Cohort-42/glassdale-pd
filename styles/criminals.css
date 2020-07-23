@@ -1,0 +1,12 @@
+.criminalList {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.criminal {
+    flex-basis: 23.85%;
+    margin: 1rem;
+    border: 1px dotted chartreuse;
+    padding: 0.525rem;
+}
