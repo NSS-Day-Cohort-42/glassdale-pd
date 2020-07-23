@@ -1,0 +1,12 @@
+.officerList {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.officer {
+    flex-basis: 23.85%;
+    margin: 1rem;
+    border: 1px dotted darkgoldenrod;
+    padding: 0.525rem;
+}
