@@ -1,2 +1,31 @@
 @import "./criminals.css";
 @import "./officers.css";
+
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
+
+/*Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+	color: #404040;
+	font-family: "Comfortaa", Arial, sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+textarea {
+    width: 30rem;
+    height: 7rem;
+}
+
+.input--text {
+    width: 30rem;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Patua One", serif;
+  letter-spacing: 2px;
+}
