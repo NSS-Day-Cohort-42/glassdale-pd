@@ -5,7 +5,32 @@ import { useConvictions } from "../convictions/ConvictionProvider.js";
 const contentTarget = document.querySelector(".criminalsContainer")
 const eventHub = document.querySelector(".container")
 
+eventHub.addEventListener("officerSelected", (officerSelectedEvent) => {
+    console.log("CriminalList: Custom officerSelected event heard on event hub")
+    // GOAL: FIlter displayed criminals by the arresting officer that was chosen
+
+    // Which officer was chosen: "Suzie Police" -> arrestingOfficer
+    const officerChosen = officerSelectedEvent.detail.officerName
+
+    // Filter criminal array based on what's chosen
+    const allCriminals = useCriminals()
+
+    // Array of criminals that were arrested by chosen officer
+    const filteredByOfficer = allCriminals.filter(
+        (currentCriminal) => {
+            if (currentCriminal.arrestingOfficer === officerChosen) {
+                return true
+            }
+            return false
+        }
+    )
+
+    render(filteredByOfficer)
+})
+
+
 eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
+    console.log("CriminalList: Custom crimeSelected event heard on event hub")
     // GOAL: Filter displayed criminals by the crime that was chosen
 
     // Which crime was chosen?????
@@ -32,6 +57,7 @@ eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
 })
 
 const render = (arrayOfCriminals) => {
+    console.log("CriminalList: Rendered to DOM")
     let criminalHTML = ""
 
     arrayOfCriminals.forEach(criminal => {
