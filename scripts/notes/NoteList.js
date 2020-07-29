@@ -8,6 +8,15 @@ eventHub.addEventListener("showNotesClicked", customEvent => {
     NoteList()
 })
 
+export const NoteList = () => {
+    getNotes()
+        .then(() => {
+            const allNotes = useNotes()
+            render(allNotes)
+        })
+}
+
+
 const render = (noteArray) => {
     const allNotesConvertedToStrings = noteArray.map(
         (currentNote) => {
@@ -16,13 +25,4 @@ const render = (noteArray) => {
     ).join("")
 
     contentTarget.innerHTML = allNotesConvertedToStrings
-}
-
-export const NoteList = () => {
-    getNotes()
-        .then(() => {
-            const allNotes = useNotes()
-            render(allNotes)
-        })
-
 }
