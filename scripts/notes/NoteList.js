@@ -2,6 +2,11 @@ import { getNotes, useNotes } from "./NoteProvider.js";
 import { NoteHTMLConverter } from "./NoteHTMLCoverter.js";
 
 const contentTarget = document.querySelector(".noteListContainer")
+const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("showNotesClicked", customEvent => {
+    NoteList()
+})
 
 const render = (noteArray) => {
     const allNotesConvertedToStrings = noteArray.map(
