@@ -26,11 +26,13 @@ eventHub.addEventListener("click", clickEvent => {
 
 const render = () => {
     contentTarget.innerHTML = `
-        <input type="text" id="note--title" placeholder="Enter note title" />
-        <input type="text" id="note--author" placeholder="Your name here" />
-        <textarea id="note--content" placeholder="Note text here"></textarea>
+        <section class="noteForm">
+            <input type="text" id="noteForm--title" placeholder="Enter note title" />
+            <input type="text" id="noteForm--author" placeholder="Your name here" />
+            <textarea id="noteForm--content" placeholder="Note text here"></textarea>
 
-        <button id="saveNote">Save Note</button>
+            <button id="noteForm--saveNote">Save Note</button>
+        </section>
     `
 }
 
