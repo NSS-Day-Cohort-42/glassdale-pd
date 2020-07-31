@@ -4,25 +4,25 @@ import { NoteHTMLConverter } from "./NoteHTMLCoverter.js";
 const contentTarget = document.querySelector(".noteList")
 const eventHub = document.querySelector(".container")
 
-eventHub.addEventListener("showNotesClicked", customEvent => {
-    NoteList()
-})
+const render = notes => {
+    contentTarget.innerHTML = notes.map(
+        (noteObject) => {
+            return NoteHTMLConverter(noteObject)
+        }
+    ).join("")
+}
 
 export const NoteList = () => {
     getNotes()
-        .then(() => {
-            const allNotes = useNotes()
-            render(allNotes)
-        })
+        .then(useNotes)
+        .then(render)
 }
 
+eventHub.addEventListener("showNotesClicked", NoteList)
+eventHub.addEventListener("noteStateChanged", () => {
+    const newNotes = useNotes()
+    render(newNotes)
+})
 
-const render = (noteArray) => {
-    const allNotesConvertedToStrings = noteArray.map(
-        (currentNote) => {
-            return NoteHTMLConverter(currentNote)
-        }
-    ).join("")
 
-    contentTarget.innerHTML = allNotesConvertedToStrings
-}
+

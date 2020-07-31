@@ -5,11 +5,11 @@ const contentTarget = document.querySelector(".noteFormContainer")
 
 // Handle browser-generated click event in component
 eventHub.addEventListener("click", clickEvent => {
-    if (clickEvent.target.id === "saveNote") {
+    if (clickEvent.target.id === "noteForm--saveNote") {
 
-        const noteTitle = document.querySelector("#note--title")
-        const noteAuthor = document.querySelector("#note--author")
-        const noteContent = document.querySelector("#note--content")
+        const noteTitle = document.querySelector("#noteForm--title")
+        const noteAuthor = document.querySelector("#noteForm--author")
+        const noteContent = document.querySelector("#noteForm--content")
 
         // Make a new object representation of a note
         const newNote = {
