@@ -1,3 +1,19 @@
+const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id.startsWith("criminal__alibiButton")) {
+        const [prompt, criminalId] = clickEvent.target.id.split("--")
+
+        const alibiEvent = new CustomEvent("associatesClicked", {
+            detail: {
+                chosenCriminal: criminalId
+            }
+        })
+
+        eventHub.dispatchEvent(alibiEvent)
+    }
+})
+
 export const CriminalHTMLConverter = (criminal) => {
     return `
         <section class="criminal">
@@ -7,6 +23,8 @@ export const CriminalHTMLConverter = (criminal) => {
             <div class="criminal__crime">Crime: ${ criminal.conviction }</div>
             <div class="criminal__term-start">Term start: ${ new Date(criminal.incarceration.start).toLocaleDateString('en-US') }</div>
             <div class="criminal__term-end">Term end: ${ new Date(criminal.incarceration.end).toLocaleDateString('en-US') }</div>
+
+            <button id="criminal__alibiButton--${ criminal.id }">Alibis</button>
         </section>
     `
 }
