@@ -1,32 +1,28 @@
 {
   "notes": [
     {
-      "id": 1,
-      "title": "Note about felon",
-      "timestamp": "07/29/2020",
-      "author": "Suzie Police",
-      "content": "I think Colonel Mustard did it."
+      "title": "She obviously did it",
+      "author": "Steve",
+      "content": "She has a nasty demeanor",
+      "criminalId": 1,
+      "timestamp": 1597327938956,
+      "id": 1
     },
     {
-      "title": "Test",
+      "title": "Testing notes",
       "author": "Steve",
-      "content": "No way",
-      "timestamp": 1596205913084,
+      "content": "Testing 1..2..3..",
+      "criminalId": 18,
+      "timestamp": 1597329681022,
       "id": 2
     },
     {
-      "title": "Suspicious emily",
-      "author": "Steve",
-      "content": "A strange character was in the parade today",
-      "timestamp": 1596206055009,
+      "title": "iohiojioj",
+      "author": "jiojoijoi",
+      "content": "jcioefjvoiewfjvoief",
+      "criminalId": 4,
+      "timestamp": 1597329925977,
       "id": 3
-    },
-    {
-      "title": "jeofwnvdfojnvo",
-      "author": "vnfdojvnwfojvn",
-      "content": "vndfojvnfjnjfdn",
-      "timestamp": 1596206093754,
-      "id": 4
     }
   ]
 }
