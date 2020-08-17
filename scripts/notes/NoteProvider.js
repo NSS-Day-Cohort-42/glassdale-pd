@@ -22,7 +22,18 @@ export const saveNote = (note) => {
     .then(dispatchStateChangeEvent)
 }
 
-
+export const deleteNote = (noteId) => {
+    return fetch(`http://localhost:8088/notes/${ noteId }`, {
+        method: "DELETE"
+    })
+    .then(getNotes)
+    .then(dispatchStateChangeEvent)
+    .catch(
+        (error) => {
+            console.log(error)
+        }
+    )
+}
 
 export const useNotes = () => {
     return notes.slice()
