@@ -14,58 +14,32 @@ const eventHub = document.querySelector(".container")
 let criminals = []
 let criminalFacilities = []
 let facilities = []
+const chosenFilters = {
+    crime: "0",
+    officer: "0"
+}
 
-eventHub.addEventListener("officerSelected", (officerSelectedEvent) => {
-    console.log("CriminalList: Custom officerSelected event heard on event hub")
-    // GOAL: FIlter displayed criminals by the arresting officer that was chosen
+/*
+    Main component initialization function
+*/
+export const CriminalList = () => {
+    getCriminals()
+        .then(getFacilities)
+        .then(getCriminalFacilities)
+        .then(() => {
+            criminals = useCriminals()
+            criminalFacilities = useCriminalFacilities()
+            facilities = useFacilities()
 
-    // Which officer was chosen: "Suzie Police" -> arrestingOfficer
-    const officerChosen = officerSelectedEvent.detail.officerName
-
-    // Filter criminal array based on what's chosen
-    const allCriminals = useCriminals()
-
-    // Array of criminals that were arrested by chosen officer
-    const filteredByOfficer = allCriminals.filter(
-        (currentCriminal) => {
-            if (currentCriminal.arrestingOfficer === officerChosen) {
-                return true
-            }
-            return false
-        }
-    )
-
-    criminals = filteredByOfficer
-
-    render()
-})
+            render()
+        })
+}
 
 
-eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
-    console.log("CriminalList: Custom crimeSelected event heard on event hub")
 
-    const crimeThatWasSelected = crimeSelectedEvent.detail.crimeId  // 9
-
-    const arrayOfCrimes = useConvictions()
-    const foundCrimeObject = arrayOfCrimes.find(
-        (crime) => {
-            return parseInt(crimeThatWasSelected) === crime.id   // NaN  "falsy"
-        }
-    )
-
-    const allCriminals = useCriminals()
-
-    const filteredCriminals = allCriminals.filter(
-        (currentCriminalObject) => {
-            return foundCrimeObject.name === currentCriminalObject.conviction
-        }
-    )
-
-    criminals = filteredCriminals
-
-    render()
-})
-
+/*
+    Component render function
+*/
 const render = () => {
     console.log("CriminalList: Rendered to DOM")
     let criminalHTML = ""
@@ -97,22 +71,69 @@ const render = () => {
     contentTarget.innerHTML = `
         <h2>Glassdale Convicted Criminals</h2>
         <article class="criminalList">
-            ${ arrayOfCriminalHTMLRepresentations.join("") }
+            ${arrayOfCriminalHTMLRepresentations.join("")}
         </article>
-        ${ AssociatesDialog() }
+        ${AssociatesDialog()}
     `
 }
 
-export const CriminalList = () => {
 
-    getCriminals()
-        .then(getFacilities)
-        .then(getCriminalFacilities)
-        .then(() => {
-            criminals = useCriminals()
-            criminalFacilities = useCriminalFacilities()
-            facilities = useFacilities()
+/*
+    Check component's state, and perform necessary filtering
+*/
+const filterCriminals = () => {
+    criminals = useCriminals()
+    const arrayOfCrimes = useConvictions()
 
-            render()
-        })
+    // If a crime was chosen, filter all criminals by that crime
+    if (chosenFilters.crime !== "0") {
+        const foundCrimeObject = arrayOfCrimes.find(
+            (crime) => {
+                return parseInt(chosenFilters.crime) === crime.id
+            }
+        )
+
+        criminals = criminals.filter(
+            (currentCriminalObject) => {
+                return foundCrimeObject.name === currentCriminalObject.conviction
+            }
+        )
+    }
+
+    // If an officer was chosen, filter all criminals by that crime
+    if (chosenFilters.officer !== "0") {
+        criminals = criminals.filter(
+            (currentCriminal) => {
+                if (currentCriminal.arrestingOfficer === chosenFilters.officer) {
+                    return true
+                }
+                return false
+            }
+        )
+    }
 }
+
+
+
+/*
+    EventHub event listeners
+*/
+eventHub.addEventListener("officerSelected", (officerSelectedEvent) => {
+    console.log("CriminalList: Custom officerSelected event heard on event hub")
+
+    chosenFilters.officer = officerSelectedEvent.detail.officerName
+    filterCriminals()
+    render()
+})
+
+
+eventHub.addEventListener("crimeSelected", (crimeSelectedEvent) => {
+    console.log("CriminalList: Custom crimeSelected event heard on event hub")
+
+    chosenFilters.crime = crimeSelectedEvent.detail.crimeId
+
+    filterCriminals()
+    render()
+})
+
+
